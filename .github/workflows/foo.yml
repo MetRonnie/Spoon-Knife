@@ -31,7 +31,7 @@ jobs:
         git submodule status > after
         echo "Status before update: $(<before)"
         echo "        after update: $(<after)"
-        if diff before after; then
+        if diff -q before after; then
           echo 'No update available' >&2
           exit 1
         fi
