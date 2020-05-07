@@ -6,7 +6,7 @@ name: Horsing around
 # events but only for the master branch
 on:
   schedule:
-    - cron: '00 08-12 * * *'
+    - cron: '00 13-16 * * *'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -24,14 +24,14 @@ jobs:
       with:
         submodules: true
 
-    - name: Update
+    - name: Update submodule
       run: |
         git submodule status > before
-        git submodule update
+        git submodule update --remote
         git submodule status > after
         echo "Status before update: $(<before)"
         echo "        after update: $(<after)"
         if diff before after; then
-          echo 'No update required' >&2
+          echo 'No update available' >&2
           exit 1
         fi
