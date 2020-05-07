@@ -29,6 +29,8 @@ jobs:
         git submodule status > before
         git submodule update
         git submodule status > after
+        echo "Status before update: $(<before)"
+        echo "Status after update: $(<after)"
         if diff before after; then
           echo 'No update required' >&2
           exit 1
