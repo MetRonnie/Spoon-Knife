@@ -1,0 +1,19 @@
+name: GH Actions Test
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  do-nothing:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo ${{ github.ref }}
+          sleep 600
