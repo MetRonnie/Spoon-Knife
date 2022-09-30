@@ -6,14 +6,18 @@ on:
   push:
     branches: [main]
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   do-nothing:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo ${{ github.ref }}
-          sleep 600
+      - id: one
+        run: echo "::set-output name=thing::true"
+
+      - id: two
+        run: echo "::notice::Hello there"
+
+      - if: steps.one.outputs.thing
+        run: echo "ONE!"
+
+      - if: steps.two.outputs.thing
+        run: echo "TWO!"
