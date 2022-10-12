@@ -23,7 +23,7 @@ jobs:
       - uses: MetRonnie/release-actions/create-pr@set-output
         with:
           head: hmm
-          base: main
+          base: oblong24
           title: Testing
           body: 🧪
         env:
