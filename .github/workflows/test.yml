@@ -2,22 +2,29 @@ name: GH Actions Test
 
 on:
   workflow_dispatch:
-  pull_request:
-  push:
-    branches: [main]
+  # pull_request:
+  # push:
+  #   branches: [main]
 
 jobs:
   do-nothing:
     runs-on: ubuntu-latest
     steps:
-      - id: one
-        run: echo "::set-output name=thing::true"
+      - uses: actions/checkout@v3
 
-      - id: two
-        run: echo "::notice::Hello there"
+      - uses: cylc/release-actions/configure-git@v1
 
-      - if: steps.one.outputs.thing
-        run: echo "ONE!"
+      - run: |
+          git checkout -b hmm
+          echo "Testing" >> README.md
+          git commit -a -m 'Testing'
+          git push
 
-      - if: steps.two.outputs.thing
-        run: echo "TWO!"
+      - uses: MetRonnie/release-actions/create-pr@set-output
+        with:
+          head: hmm
+          base: main
+          title: Testing
+          body: 🧪
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
