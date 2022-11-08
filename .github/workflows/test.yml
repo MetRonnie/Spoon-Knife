@@ -17,8 +17,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          # commitish: ${{ env.MERGE_SHA }}
-          tag_name: '35.24.5'
+          commitish: f38719a32c08bb650978fd2a09b05bdc22550670
+          tag_name: '1.1.34422'
           release_name: yellowbar-bravo
           prerelease: true
           body: |
