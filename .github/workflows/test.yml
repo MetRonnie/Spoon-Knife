@@ -12,19 +12,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: cylc/release-actions/configure-git@v1
-
-      - run: |
-          git checkout -b hmm
-          echo "Testing" >> README.md
-          git commit -a -m 'Testing'
-          git push
-
-      - uses: MetRonnie/release-actions/create-pr@set-output
-        with:
-          head: hmm
-          base: oblong24
-          title: Testing
-          body: 🧪
+      - uses: MetRonnie/release-actions/create-release@gh-cli
+        id: create-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # commitish: ${{ env.MERGE_SHA }}
+          tag_name: '35.24.5'
+          release_name: yellowbar-bravo
+          prerelease: true
+          body: |
+            Blah blah
+
+            Cylc 8 can be installed via pypi or Conda - you don't need to download this release directly.
+            See the [installation](https://cylc.github.io/cylc-doc/latest/html/installation.html) section of the documentation.
+
+      - run: echo ${{ steps.create-release.outputs.html_url }}
